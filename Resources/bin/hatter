@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+if ('cli' !== \PHP_SAPI) {
+    throw new Exception('This script must be run from the command line.');
+}
+
+require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/autoload.php';
+
+use Symfony\Component\Console\Application;
+use LinkORB\Component\Hatter\Command\HatterLoadCommand;
+
+if (!class_exists(Application::class)) {
+    fwrite(STDERR, 'You need the "symfony/console" component in order to run the Yaml linter.'.PHP_EOL);
+    exit(1);
+}
+
+(new Application())->add($command = new HatterLoadCommand())
+    ->getApplication()
+    ->setDefaultCommand($command->getName(), true)
+    ->run()
+;

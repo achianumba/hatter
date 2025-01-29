@@ -10,3 +10,5 @@
 ###< symfony/framework-bundle ###
 /docker-compose.dev.yaml
 /Dockerfile
+/composer.lock
+/symfony.lock
