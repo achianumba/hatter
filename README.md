@@ -4,8 +4,6 @@
 
 A database fixture tool inspired by [Alice](https://github.com/nelmio/alice) and [Haigha](https://github.com/linkorb/haigha), but better suited for non-symfony or third-party application written in other programming languages.
 
-## Usage
-
 Hatter allows you to write human-friendly YAML files containing the data you want to load into your database for testing and initialization. Have a look at the [example/](example/) directory to get a feel for how to write your own database fixtures.
 
 ## Hatter vs Alice
@@ -17,26 +15,52 @@ Hatter on the other hand writes to databases directly. This way you can use it f
 
 Alice is more feature rich, but Hatter supports most common use-cases and features, making it a great alternative.
 
+## Installation
+
+1. Register `linkorb/hatter` repository by running the below command at the root of a project.
+   
+   ```shell
+   composer config repositories.hatter vcs https://github.com/achianumba/hatter
+   ```
+2. Install `linkorb/hatter` as a development package.
+   
+   ```shell
+   composer require --dev linkorb/hatter:dev-component
+   ```
+
 ## Usage
 
-```
-git clone https://github.com/linkorb/hatter.git
-cd hatter
-composer install
-bin/console hatter:load example/demo.hatter.yaml
-```
+1. Set the `HATTER_DSN` variable in the project's ***.env.local*** file to the project's database connection string.
+   
+   Example.
 
-## Database connection
+   ```ini
+   # .env.local
+   HATTER_DSN=mysql://username:password@somehost/mydatabase
+   ```
+2. Load `hatter` fixtures into a database using either of the below methods:
+   
+   - **Symfony applications:**
+     1. Register the `hatter:load` command by adding it to the `services` object of a Symfony application's ***config/services.yaml*** file as shown below:
 
-Hatter reads the connection string from the environment variable `HATTER_DSN`. 
-Instead of setting this environment variable, you can also create a `.env.local` file, which hatter will load during startup.
+        ```yaml
+        services:
+          # ...
+          LinkORB\Component\Hatter\Command\HatterLoadCommand:
+            tags:
+              - name: console.command
+                command: hatter:load
+        ```
+     2. Run the `hatter:load` console command against the project's `hatter` fixtures:
 
-Example:
-
-```ini
-# .env.local
-HATTER_DSN=mysql://username:password@somehost/mydatabase
-```
+        ```shell
+        bin/console hatter:load example/demo.hatter.yaml
+        ```
+   - **Non Symfony applications:** Run `vendor/bin/hatter` against the project's `hatter` fixtures as shown below:
+     
+     ```shell
+     vendor/bin/hatter example/demo.hatter.yaml
+     ```
 
 ## Writing database fixtures as YAML files
 
