@@ -12,3 +12,5 @@
 /Dockerfile
 /composer.lock
 /symfony.lock
+*.tar
+*.zip

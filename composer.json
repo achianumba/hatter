@@ -17,8 +17,7 @@
             "email": "engineering@linkorb.com"
         }
     ],
-    "minimum-stability": "stable",
-    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
         "php": ">=8.1",
         "ext-ctype": "*",
