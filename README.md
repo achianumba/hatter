@@ -20,7 +20,7 @@ Alice is more feature rich, but Hatter supports most common use-cases and featur
 1. Register `linkorb/hatter` repository by running the below command at the root of a project.
    
    ```shell
-   composer config repositories.hatter vcs https://github.com/achianumba/hatter
+   composer config repositories.linkorb/hatter git https://github.com/achianumba/hatter
    ```
 2. Install `linkorb/hatter` as a development package.
    
